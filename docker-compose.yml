@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  node1:
+    build: .
+    container_name: node1
+    hostname: node1
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./scripts:/scripts:ro
+      - ./hosts:/hosts:ro
+    networks:
+      mpi_net:
+        ipv4_address: 172.20.0.10
+
+  node2:
+    build: .
+    container_name: node2
+    hostname: node2
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./scripts:/scripts:ro
+      - ./hosts:/hosts:ro
+    networks:
+      mpi_net:
+        ipv4_address: 172.20.0.11
+
+  node3:
+    build: .
+    container_name: node3
+    hostname: node3
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./scripts:/scripts:ro
+      - ./hosts:/hosts:ro
+    networks:
+      mpi_net:
+        ipv4_address: 172.20.0.12
+
+networks:
+  mpi_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
